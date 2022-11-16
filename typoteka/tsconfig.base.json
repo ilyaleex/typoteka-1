@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@typoteka/core": ["libs/core/src/index.ts"],
       "@typoteka/shared-types": ["libs/shared-types/src/index.ts"]
     }
   },
