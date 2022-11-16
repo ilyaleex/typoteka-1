@@ -1,1 +1,1 @@
-// Ре-экспорт элементов
+export * from './lib/helpers';
