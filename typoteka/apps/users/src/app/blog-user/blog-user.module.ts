@@ -1,4 +1,8 @@
 import { Module } from '@nestjs/common';
+import { BlogUserMemoryRepository } from './blog-user-memory.repository';
 
-@Module({})
+@Module({
+  providers: [BlogUserMemoryRepository],
+  exports: [BlogUserMemoryRepository]
+})
 export class BlogUserModule {}

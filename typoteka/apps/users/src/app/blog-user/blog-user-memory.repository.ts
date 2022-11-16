@@ -1,7 +1,10 @@
+import { Injectable } from '@nestjs/common';
 import {CRUDRepository} from '@typoteka/core';
+import * as crypto from 'crypto';
 import {User} from '@typoteka/shared-types';
 import {BlogUserEntity} from './blog-user.entity';
 
+@Injectable()
 export class BlogUserMemoryRepository implements CRUDRepository<BlogUserEntity, string, User> {
   private repository: {[key: string]: User} = {};
 
