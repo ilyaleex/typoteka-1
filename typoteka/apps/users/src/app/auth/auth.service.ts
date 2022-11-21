@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as dayjs from 'dayjs';
 import { UserRole } from '@typoteka/shared-types';
 import { BlogUserMemoryRepository } from '../blog-user/blog-user-memory.repository';
@@ -6,19 +6,12 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from './auth.constant';
 import { BlogUserEntity } from '../blog-user/blog-user.entity';
 import { LoginUserDto } from './dto/login-user.dto';
-import { ConfigType } from '@nestjs/config';
-import databaseConfig from '../../config/database.config';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly blogUserRepository: BlogUserMemoryRepository,
-
-    @Inject(databaseConfig.KEY)
-    private readonly mongoConfig: ConfigType<typeof databaseConfig>,
-  ) {
-    console.log(mongoConfig.password);
-  }
+  ) {}
 
   async register(dto: CreateUserDto) {
     const {email, firstname, lastname, password, dateBirth} = dto;
