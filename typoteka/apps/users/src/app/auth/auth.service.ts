@@ -6,12 +6,17 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from './auth.constant';
 import { BlogUserEntity } from '../blog-user/blog-user.entity';
 import { LoginUserDto } from './dto/login-user.dto';
+import {ConfigService} from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly blogUserRepository: BlogUserMemoryRepository
-  ) {}
+    private readonly blogUserRepository: BlogUserMemoryRepository,
+    private readonly configService: ConfigService,
+  ) {
+    // Получаем настройки, используюя точечную нотацию
+    console.log(configService.get<string>('database.host'));
+  }
 
   async register(dto: CreateUserDto) {
     const {email, firstname, lastname, password, dateBirth} = dto;
