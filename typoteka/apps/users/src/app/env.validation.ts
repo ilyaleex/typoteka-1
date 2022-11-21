@@ -1,4 +1,5 @@
-import {IsNumber, IsString, Max, Min} from 'class-validator';
+import { plainToInstance } from 'class-transformer';
+import {IsNumber, IsString, Max, Min, validateSync} from 'class-validator';
 import {EnvValidationMessage} from './app.constant';
 
 const MIN_PORT = 0;
@@ -36,4 +37,24 @@ class EnvironmentsConfig {
     message: EnvValidationMessage.DBBaseAuthRequired
   })
   public MONGO_AUTH_BASE: string;
+}
+
+export function validateEnvironments(config: Record<string, unknown>) {
+  const environmentsConfig = plainToInstance(
+    EnvironmentsConfig,
+    config,
+    { enableImplicitConversion: true  },
+  );
+
+  const errors = validateSync(
+    environmentsConfig, {
+      skipMissingProperties: false
+    }
+  );
+
+  if (errors.length > 0) {
+    throw new Error(errors.toString());
+  }
+
+  return environmentsConfig;
 }
