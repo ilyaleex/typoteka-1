@@ -47,3 +47,12 @@ model CategoriesOnPosts {
 
   @@id([postId, categoryId])
 }
+
+model Comment {
+  id          Int @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  text        String
+  userId      String
+  post        Post @relation(fields: [postId], references: [id])
+  postId      Int
+}
