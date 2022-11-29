@@ -54,7 +54,15 @@
         "jestConfig": "apps/blog/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "db-validate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx prisma validate --schema ./prisma/schema.prisma",
+        "cwd": "apps/blog"
+      }
     }
+
   },
   "tags": []
 }
