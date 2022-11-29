@@ -82,6 +82,12 @@
         "command": "npx prisma generate --schema ./prisma/schema.prisma",
         "cwd": "apps/blog"
       }
+    },
+    "db-generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx prisma generate --schema apps/blog/prisma/schema.prisma"
+      }
     }
   },
   "tags": []
