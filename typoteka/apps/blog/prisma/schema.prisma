@@ -36,3 +36,14 @@ model Comment {
   post        Post @relation(fields: [postId], references: [id])
   postId      Int
 }
+
+model CategoriesOnPosts {
+  post         Post @relation(fields: [postId], references: [id])
+  postId       Int
+  category     Category @relation(fields: [categoryId], references: [id])
+  categoryId   Int
+  assignedAt   DateTime @default(now())
+  assignedBy   String
+
+  @@id([postId, categoryId])
+}
