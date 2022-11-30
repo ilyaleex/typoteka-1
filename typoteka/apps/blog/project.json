@@ -83,10 +83,11 @@
         "cwd": "apps/blog"
       }
     },
-    "db-generate": {
+    "db-fill": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx prisma generate --schema apps/blog/prisma/schema.prisma"
+        "command": "npx prisma db seed",
+        "cwd": "apps/blog"
       }
     }
   },
