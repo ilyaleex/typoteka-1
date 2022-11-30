@@ -1,0 +1,37 @@
+# Create a new post
+POST http://localhost:3333/api/posts HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Hello world!",
+  "announceText": "Текст анонса",
+  "text": "Расширенный текст публикации",
+  "userId": "13",
+  "categories": [1]
+}
+
+###
+
+# Delete the post by id
+DELETE http://localhost:3333/api/posts/3 HTTP/1.1
+
+###
+
+# Get post by id
+GET http://localhost:3333/api/posts/5 HTTP/1.1
+
+###
+
+# Get all posts
+GET http://localhost:3333/api/posts HTTP/1.1
+
+###
+
+PATCH http://localhost:3333/api/posts/1 HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Новый заголовок"
+}
+
+###
