@@ -1,4 +1,4 @@
-import { Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, Patch } from '@nestjs/common';
+import {Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, Patch, ParseIntPipe} from '@nestjs/common';
 import { BlogCategoryService } from './blog-category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { fillObject } from '@typoteka/core';
@@ -12,9 +12,8 @@ export class BlogCategoryController {
   ) {}
 
   @Get('/:id')
-  async show(@Param('id') id: string) {
-    const categoryId = parseInt(id, 10);
-    const existCategory = await this.blogCategoryService.getCategory(categoryId);
+  async show(@Param('id', ParseIntPipe) id: number) {
+    const existCategory = await this.blogCategoryService.getCategory(id);
     return fillObject(CategoryRdo, existCategory);
   }
 
