@@ -12,9 +12,8 @@ export class BlogPostController {
   ) {}
 
   @Get('/:id')
-  async show(@Param('id') id: string) {
-    const postId = parseInt(id, 10);
-    const post = await this.blogPostService.getPost(postId);
+  async show(@Param('id') id: number) {
+    const post = await this.blogPostService.getPost(id);
     return fillObject(PostRdo, post);
   }
 
@@ -32,15 +31,13 @@ export class BlogPostController {
 
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async destroy(@Param('id') id: string) {
-    const postId = parseInt(id, 10);
-    this.blogPostService.deletePost(postId);
+  async destroy(@Param('id') id: number) {
+    this.blogPostService.deletePost(id);
   }
 
   @Patch('/:id')
-  async update(@Param('id') id: string, @Body() dto: UpdateCategoryDto) {
-    const postId = parseInt(id, 10);
-    const updatedPost = await this.blogPostService.updatePost(postId, dto);
+  async update(@Param('id') id: number, @Body() dto: UpdateCategoryDto) {
+    const updatedPost = await this.blogPostService.updatePost(id, dto);
     return fillObject(PostRdo, updatedPost)
   }
 }
