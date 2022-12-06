@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query} from '@nestjs/common';
 import { BlogPostService } from './blog-post.service';
 import { fillObject } from '@typoteka/core';
 import { PostRdo } from './rdo/post.rdo';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdateCategoryDto } from '../blog-category/dto/update-category.dto';
+import { PostQuery } from './query/post.query';
 
 @Controller('posts')
 export class BlogPostController {
@@ -18,8 +19,8 @@ export class BlogPostController {
   }
 
   @Get('/')
-  async index() {
-    const posts = await this.blogPostService.getPosts();
+  async index(@Query () query: PostQuery) {
+    const posts = await this.blogPostService.getPosts(query);
     return fillObject(PostRdo, posts);
   }
 
