@@ -6,6 +6,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { UserRdo } from './rdo/user.rdo';
+import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -46,7 +47,7 @@ export class AuthController {
     status: HttpStatus.OK,
     description: 'User found'
   })
-  async show(@Param('id') id: string) {
+  async show(@Param('id', MongoidValidationPipe) id: string) {
     const existUser = await this.authService.getUser(id);
     return fillObject(UserRdo, existUser);
   }
