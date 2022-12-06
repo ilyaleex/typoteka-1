@@ -3,6 +3,7 @@ import { BlogPostEntity } from './blog-post.entity';
 import { Post } from '@typoteka/shared-types';
 import { PrismaService } from '../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
+import { PostQuery } from './query/post.query';
 
 @Injectable()
 export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number, Post> {
@@ -47,12 +48,28 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
     });
   }
 
-  public find(): Promise<Post[]> {
+  public find({limit, categories, sortDirection, page}: PostQuery): Promise<Post[]> {
     return this.prisma.post.findMany({
+      where: {
+        categories: {
+          some: {
+            id: {
+              in: categories
+            }
+          }
+        }
+      },
+      take: limit,
       include: {
         comments: true,
-        categories: true
-      }
+        categories: true,
+      },
+      orderBy: [
+        {
+          createdAt: sortDirection
+        }
+      ],
+      skip: page > 0 ? limit * (page - 1) : undefined,
     });
   }
 
